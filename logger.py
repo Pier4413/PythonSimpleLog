@@ -6,7 +6,7 @@ class Logger(object):
     """
         Static instance for Singleton
 
-        :static:
+        :meta static:
         :type __instance: Logger
     """
     __instance = None
@@ -14,6 +14,8 @@ class Logger(object):
     def getInstance():
         """ 
             Static access method
+
+            :meta static:
         """
         if Logger.__instance == None:
             Logger()
