@@ -66,3 +66,49 @@ class Logger(object):
         self.__logger.addHandler(handler_critic)
         self.__logger.addHandler(handler_info)
         self.__logger.addHandler(handler_debug) # HACK : TO BE COMMENTED IN FINAL VERSION
+
+    def debug(self, value : str) -> None:
+        """
+            Print in debug level
+
+            :param value: The text to print
+            :type value: str
+        """
+        self.__logger.debug(value)
+
+    def info(self, value : str) -> None:
+        """
+            Print in info level
+
+            :param value: The text to print
+            :type value: str
+        """
+        self.__logger.info(value)
+
+    def warning(self, value : str) -> None:
+        """
+            Print in warning level
+
+            :param value: The text to print
+            :type value: str
+        """
+        self.__logger.warning(value)
+    
+    def error(self, value : str) -> None:
+        """
+            Print in error level
+
+            :param value: The text to print
+            :type value: str
+        """
+        self.__logger.error(value)
+
+    def critical(self, value : str) -> None:
+        """
+            Print in critical level
+
+            :param value: The text to print
+            :type value: str
+        """
+        self.__logger.critical(value)
+
