@@ -2,6 +2,13 @@ import logging
 import sys
 
 class Logger(object):
+    """
+        This class manage logs using a Singleton via three files critical, infos and sys.stdout
+
+        :author: Panda <panda@delmasweb.net>
+        :date: February 7, 2022
+        :version: 1.0
+    """
 
     """
         Static instance for Singleton
@@ -67,7 +74,7 @@ class Logger(object):
         self.__logger.setLevel(level)
         self.__logger.addHandler(handler_critic)
         self.__logger.addHandler(handler_info)
-        self.__logger.addHandler(handler_debug) # HACK : TO BE COMMENTED IN FINAL VERSION
+        self.__logger.addHandler(handler_debug)
 
     def debug(self, value : str) -> None:
         """
