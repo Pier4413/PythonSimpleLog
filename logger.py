@@ -37,7 +37,7 @@ class Logger(object):
         else:
             Logger.__instance = self
 
-    def loadLogger(self, app_name : str = "", critical_file : str = "./critical.log", info_file : str = "./info.log", level : int = 20):
+    def load_logger(self, app_name : str = "", critical_file : str = "./critical.log", info_file : str = "./info.log", level : int = 20):
         """
             Loading loggers data
 
