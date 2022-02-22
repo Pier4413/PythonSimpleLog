@@ -37,7 +37,7 @@ class Logger(object):
         else:
             Logger.__instance = self
 
-    def loadLogger(self, appName : str = "WeatherApp", criticalFile : str = "./critical.log", infoFile : str = "./info.log", level : int = 20):
+    def loadLogger(self, app_name : str = "", critical_file : str = "./critical.log", info_file : str = "./info.log", level : int = 20):
         """
             Loading loggers data
 
@@ -50,14 +50,14 @@ class Logger(object):
             :param level: The level from logging
             :type level: int
         """
-        self.__logger = logging.getLogger(appName)
+        self.__logger = logging.getLogger(app_name)
         
         # Logs Formatting
         formatter = logging.Formatter("%(asctime)s -- %(name)s -- %(levelname)s -- %(message)s")
 
         # Handler for messages (critical and errors in one file, info in another and eventually debug in the stdout)
-        handler_critic = logging.FileHandler(criticalFile, mode="a", encoding="utf-8")
-        handler_info = logging.FileHandler(infoFile, mode="a", encoding="utf-8")
+        handler_critic = logging.FileHandler(critical_file, mode="a", encoding="utf-8")
+        handler_info = logging.FileHandler(info_file, mode="a", encoding="utf-8")
         handler_debug = logging.StreamHandler(sys.stdout)
 
         # Setting the format for every handler
