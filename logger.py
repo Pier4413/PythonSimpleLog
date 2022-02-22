@@ -18,7 +18,7 @@ class Logger(object):
     """
     __instance = None
 
-    def getInstance():
+    def get_instance():
         """ 
             Static access method
 
