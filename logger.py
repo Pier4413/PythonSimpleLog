@@ -32,7 +32,7 @@ class Logger(object):
         """
             Virtually private constructor
         """
-        if Logger.__instance != None:
+        if Logger.__instance is not None:
             raise Exception("This class is a singleton!")
         else:
             Logger.__instance = self
