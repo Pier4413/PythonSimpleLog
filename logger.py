@@ -1,4 +1,5 @@
 import logging
+import os
 import sys
 
 class Logger(object):
@@ -36,6 +37,21 @@ class Logger(object):
             raise Exception("This class is a singleton!")
         else:
             Logger.__instance = self
+    
+    def create_folders(self, filename : str) -> None:
+        """
+            Create the folder and all subfolders of the log file to avoid problems
+
+            :param filename: The path of the file (relative or absolute)
+            :type filename:
+        """
+        file_folders = filename.split("/")
+        file_folder_path = ""
+
+        for f in file_folders[:len(file_folders)-1]:
+            file_folder_path = file_folder_path + f + "/"
+
+        os.makedirs(os.path.join(file_folder_path), exist_ok=True)
 
     def load_logger(self, app_name : str = "", critical_file : str = "./critical.log", info_file : str = "./info.log", level : int = 20):
         """
@@ -51,6 +67,9 @@ class Logger(object):
             :type level: int
         """
         self.__logger = logging.getLogger(app_name)
+
+        self.create_folders(critical_file)
+        self.create_folders(info_file)
         
         # Logs Formatting
         formatter = logging.Formatter("%(asctime)s -- %(name)s -- %(levelname)s -- %(message)s")
