@@ -53,47 +53,47 @@ class Logger(object):
 
         os.makedirs(os.path.join(file_folder_path), exist_ok=True)
 
-    def load_logger(self, app_name : str = "", critical_file : str = "./critical.log", info_file : str = "./info.log", level : int = 20):
+    def load_logger(self, app_name : str = "", critical_file : str = None, info_file : str = None, console : bool = False, level : int = 20):
         """
             Loading loggers data
 
             :param appName: The name of the application
             :type appName: str
-            :param criticalFile: Critical file full path (relative or absolute)
+            :param criticalFile: Optional; Default : None; Critical file full path (relative or absolute). If None no crit file
             :type criticalFile: str
-            :param infoFile: Info file full path (relative or absolute)
+            :param infoFile: Optional; Default : None; Info file full path (relative or absolute). If None no info file
             :type infoFile: str
+            :param console: Optional; Default : False; Print the logs in the console or not
+            :type console: bool
             :param level: The level from logging
             :type level: int
         """
         self.__logger = logging.getLogger(app_name)
+        self.__logger.setLevel(level)
 
-        self.create_folders(critical_file)
-        self.create_folders(info_file)
-        
         # Logs Formatting
         formatter = logging.Formatter("%(asctime)s -- %(name)s -- %(levelname)s -- %(message)s")
 
         # Handler for messages (critical and errors in one file, info in another and eventually debug in the stdout)
-        handler_critic = logging.FileHandler(critical_file, mode="a", encoding="utf-8")
-        handler_info = logging.FileHandler(info_file, mode="a", encoding="utf-8")
-        handler_debug = logging.StreamHandler(sys.stdout)
-
-        # Setting the format for every handler
-        handler_critic.setFormatter(formatter)
-        handler_info.setFormatter(formatter)
-        handler_debug.setFormatter(formatter)
-
-        # Configuring the levels
-        handler_debug.setLevel(logging.DEBUG)
-        handler_info.setLevel(logging.INFO)
-        handler_critic.setLevel(logging.CRITICAL)
-
-        # Set the current level in conformity with the settings and add all handlers
-        self.__logger.setLevel(level)
-        self.__logger.addHandler(handler_critic)
-        self.__logger.addHandler(handler_info)
-        self.__logger.addHandler(handler_debug)
+        if(critical_file is not None):
+            self.create_folders(critical_file)
+            handler_critic = logging.FileHandler(critical_file, mode="a", encoding="utf-8")
+            handler_critic.setFormatter(formatter)
+            handler_critic.setLevel(logging.CRITICAL)
+            self.__logger.addHandler(handler_critic)
+        
+        if(info_file is not None):
+            self.create_folders(info_file)
+            handler_info = logging.FileHandler(info_file, mode="a", encoding="utf-8")
+            handler_info.setFormatter(formatter)
+            handler_info.setLevel(logging.INFO)
+            self.__logger.addHandler(handler_info)
+        
+        if(console is True):
+            handler_debug = logging.StreamHandler(sys.stdout)
+            handler_debug.setFormatter(formatter)
+            handler_debug.setLevel(logging.DEBUG)
+            self.__logger.addHandler(handler_debug)
 
     def debug(self, value : str) -> None:
         """
