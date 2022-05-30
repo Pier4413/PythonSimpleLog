@@ -37,6 +37,7 @@ class Logger(object):
             raise Exception("This class is a singleton!")
         else:
             Logger.__instance = self
+            self.load_logger() # Load an empty logger in case we did load nothing
     
     def create_folders(self, filename : str) -> None:
         """
