@@ -92,7 +92,7 @@ class Logger(object):
             #filename, mode='a', maxBytes=0, backupCount=0, encoding=None, delay=False, errors=None
             handler_critic = logging.handlers.RotatingFileHandler(critical_file, mode="a", maxByte=int(files_max_size * 1024), backupCount=backup_count, encoding="utf-8")
             handler_critic.setFormatter(formatter)
-            handler_critic.setLevel(logging.CRITICAL)
+            handler_critic.setLevel(logging.ERROR)
             self.__logger.addHandler(handler_critic)
         
         if(info_file is not None):
