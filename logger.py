@@ -123,9 +123,9 @@ class Logger(object):
 
   def format_log(cls : object = None, value : str = "") -> str:
     if cls is None:
-      return f"Value : {value}"
+      return f"{value}"
     else:
-      return f"Class : {cls.__name__} - Value : {value}"
+      return f"Class : {cls.__name__} - {value}"
 
   def debug(cls = None, value: str = "") -> None:
     """
