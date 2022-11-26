@@ -16,9 +16,9 @@ console = True # Print to the console (DEBUG, INFO, WARN, ERROR and CRITICAL)
 level = 10 # The level of the data to print
 
 Logger.get_instance().load_logger(app_name, critical_file, info_file, files_max_size, backup_count, console, level) # Load the logger. You have to do it only once in your app
-Logger.get_instance().debug(f"TEST") # Print a message in debug
-Logger.get_instance().info(f"TEST") # Print a message in info
-Logger.get_instance().warning(f"TEST") # Print a message in warning
-Logger.get_instance().error(f"TEST") # Print a message in error
-Logger.get_instance().critical(f"TEST") # Print a message in critical
+Logger.debug(cls, f"TEST") # Print a message in debug from the class cls (could be None if no class)
+Logger.info(cls, f"TEST") # Print a message in info from the class cls (could be None if no class)
+Logger.warning(cls, f"TEST") # Print a message in warning from the class cls (could be None if no class)
+Logger.error(cls, f"TEST") # Print a message in error from the class cls (could be None if no class)
+Logger.critical(cls, f"TEST") # Print a message in critical from the class cls (could be None if no class)
 ```

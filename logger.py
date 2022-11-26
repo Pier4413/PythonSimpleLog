@@ -121,47 +121,55 @@ class Logger(object):
       "The minimal log level as defined in the python logging module. A lower level includes all above\n\t\tOptional\n\t\tDefault : 20\n\t\t\t- 10 : DEBUG\n\t\t\t- 20 : INFO\n\t\t\t- 30 : ERROR\n\t\t\t- 40 : CRITICAL"
     ]
 
-  def debug(value: str) -> None:
+  def format_log(cls : object = None, value : str = "") -> str:
+    if cls is None:
+      return f"Value : {value}"
+    else:
+      return f"Class : {cls.__name__} - Value : {value}"
+
+  def debug(cls = None, value: str = "") -> None:
     """
       Print in debug level
 
       :param value: The text to print
       :type value: str
     """
-    Logger.get_instance().__logger.debug(value)
+    Logger.get_instance().__logger.debug(Logger.format_log(cls, value))
 
-  def info(value: str) -> None:
+  def info(cls = None, value: str = "") -> None:
     """
       Print in info level
 
       :param value: The text to print
       :type value: str
     """
-    Logger.get_instance().__logger.info(value)
+    Logger.get_instance().__logger.info(Logger.format_log(cls, value))
 
-  def warning(value: str) -> None:
+  def warning(cls = None, value: str = "") -> None:
     """
       Print in warning level
 
       :param value: The text to print
       :type value: str
     """
-    Logger.get_instance().__logger.warning(value)
+    Logger.get_instance().__logger.warning(Logger.format_log(cls, value))
 
-  def error(value: str) -> None:
+  def error(cls = None, value: str = "") -> None:
     """
       Print in error level
 
       :param value: The text to print
       :type value: str
     """
-    Logger.get_instance().__logger.error(value)
+    Logger.get_instance().__logger.error(Logger.format_log(cls, value))
 
-  def critical(value: str) -> None:
+  def critical(cls = None, value: str = "") -> None:
     """
       Print in critical level
 
+      :param cls: The class originating the error
+      :type cls: A class object
       :param value: The text to print
       :type value: str
     """
-    Logger.get_instance().__logger.critical(value)
+    Logger.get_instance().__logger.critical(Logger.format_log(cls, value))
