@@ -156,6 +156,12 @@ class Logger(object):
       :type value: str
     """
     Logger.get_instance().__logger.warning(Logger.format_log(cls, value))
+  
+  def warn(cls = None, value: str = "") -> None:
+    """
+      Alias for warning
+    """
+    Logger.warning(cls, value)
 
   def error(cls = None, value: str = "") -> None:
     """
@@ -165,6 +171,12 @@ class Logger(object):
       :type value: str
     """
     Logger.get_instance().__logger.error(Logger.format_log(cls, value))
+
+  def err(cls = None, value: str = "") -> None:
+    """
+      Alias for error
+    """
+    Logger.error(cls, value)
 
   def critical(cls = None, value: str = "") -> None:
     """
@@ -176,3 +188,9 @@ class Logger(object):
       :type value: str
     """
     Logger.get_instance().__logger.critical(Logger.format_log(cls, value))
+
+  def crit(cls = None, value: str = "") -> None:
+    """
+      Alias for critical
+    """
+    Logger.critical(cls, value)
