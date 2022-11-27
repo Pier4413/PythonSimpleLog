@@ -125,7 +125,10 @@ class Logger(object):
     if cls is None:
       return f"{value}"
     else:
-      return f"Class : {os.path.relpath(inspect.getfile(cls.__class__))} - {value}"
+      try:
+        return f"{type(cls)} -- {value}"
+      except Exception as e:
+        return f"{cls} -- {value}"
 
   def debug(cls = None, value: str = "") -> None:
     """
