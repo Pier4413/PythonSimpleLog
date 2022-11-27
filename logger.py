@@ -2,7 +2,7 @@ import logging
 import logging.handlers
 import os
 import sys
-
+import inspect
 
 class Logger(object):
   """
@@ -121,11 +121,11 @@ class Logger(object):
       "The minimal log level as defined in the python logging module. A lower level includes all above\n\t\tOptional\n\t\tDefault : 20\n\t\t\t- 10 : DEBUG\n\t\t\t- 20 : INFO\n\t\t\t- 30 : ERROR\n\t\t\t- 40 : CRITICAL"
     ]
 
-  def format_log(cls : object = None, value : str = "") -> str:
+  def format_log(cls = None, value : str = "") -> str:
     if cls is None:
       return f"{value}"
     else:
-      return f"Class : {cls.__name__} - {value}"
+      return f"Class : {os.path.relpath(inspect.getfile(cls.__class__))} - {value}"
 
   def debug(cls = None, value: str = "") -> None:
     """
