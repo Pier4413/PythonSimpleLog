@@ -126,7 +126,7 @@ class Logger(object):
       return f"{value}"
     else:
       try:
-        return f"{type(cls)} -- {value}"
+        return f"{cls} -- {value}"
       except Exception as e:
         return f"{cls} -- {value}"
 
