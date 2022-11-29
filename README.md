@@ -22,3 +22,5 @@ Logger.warning(cls, f"TEST") # Print a message in warning from the class cls (co
 Logger.error(cls, f"TEST") # Print a message in error from the class cls (could be None if no class)
 Logger.critical(cls, f"TEST") # Print a message in critical from the class cls (could be None if no class)
 ```
+
+Please note this module depends on :
