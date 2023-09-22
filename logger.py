@@ -19,8 +19,17 @@ class Logger(object):
     :type __instance: Logger
   """
   __instance = None
+  __logger = None
 
-  def get_instance():
+  @property
+  def logger(self) -> logging.Logger:
+    if Logger.__logger is not None:
+      return Logger.__logger
+    else:
+      raise Exception("No logger loaded")
+
+
+  def get_instance() -> "Logger" | None:
     """ 
       Static access method
 
@@ -57,8 +66,8 @@ class Logger(object):
 
   def load_logger(self,
     app_name: str = "",
-    critical_file: str = None,
-    info_file: str = None,
+    critical_file: str | None = None,
+    info_file: str | None = None,
     files_max_size: int = 10,
     backup_count: int = 10,
     console: bool = False,
@@ -136,7 +145,7 @@ class Logger(object):
       :param value: The text to print
       :type value: str
     """
-    Logger.get_instance().__logger.debug(Logger.format_log(cls, value))
+    Logger.get_instance().logger.debug(Logger.format_log(cls, value))
 
   def info(cls = None, value: str = "") -> None:
     """
@@ -145,7 +154,7 @@ class Logger(object):
       :param value: The text to print
       :type value: str
     """
-    Logger.get_instance().__logger.info(Logger.format_log(cls, value))
+    Logger.get_instance().logger.info(Logger.format_log(cls, value))
 
   def warning(cls = None, value: str = "") -> None:
     """
@@ -154,7 +163,7 @@ class Logger(object):
       :param value: The text to print
       :type value: str
     """
-    Logger.get_instance().__logger.warning(Logger.format_log(cls, value))
+    Logger.get_instance().logger.warning(Logger.format_log(cls, value))
   
   def warn(cls = None, value: str = "") -> None:
     """
@@ -169,7 +178,7 @@ class Logger(object):
       :param value: The text to print
       :type value: str
     """
-    Logger.get_instance().__logger.error(Logger.format_log(cls, value))
+    Logger.get_instance().logger.error(Logger.format_log(cls, value))
 
   def err(cls = None, value: str = "") -> None:
     """
@@ -186,7 +195,7 @@ class Logger(object):
       :param value: The text to print
       :type value: str
     """
-    Logger.get_instance().__logger.critical(Logger.format_log(cls, value))
+    Logger.get_instance().logger.critical(Logger.format_log(cls, value))
 
   def crit(cls = None, value: str = "") -> None:
     """
