@@ -3,6 +3,10 @@ import logging.handlers
 import os
 import sys
 
+import threading
+
+mutex = threading.Lock()
+
 class Logger(object):
   """
     This class manage logs using a Singleton via three files critical, infos and sys.stdout
@@ -29,14 +33,17 @@ class Logger(object):
       raise Exception("No logger loaded")
 
 
-  def get_instance() -> "Logger" | None:
+  def get_instance() -> "Logger":
     """ 
       Static access method
 
       :meta static:
     """
+    global mutex
+    mutex.acquire()
     if Logger.__instance == None:
       Logger()
+    mutex.release()
     return Logger.__instance
 
   def __init__(self):
@@ -145,7 +152,10 @@ class Logger(object):
       :param value: The text to print
       :type value: str
     """
-    Logger.get_instance().logger.debug(Logger.format_log(cls, value))
+    try:
+      Logger.get_instance().logger.debug(Logger.format_log(cls, value))
+    except:
+      print(f"[DEBUG] - {Logger.format_log(cls, value)}")
 
   def info(cls = None, value: str = "") -> None:
     """
@@ -154,7 +164,11 @@ class Logger(object):
       :param value: The text to print
       :type value: str
     """
-    Logger.get_instance().logger.info(Logger.format_log(cls, value))
+    try:
+      Logger.get_instance().logger.info(Logger.format_log(cls, value))
+    except:
+      print(f"[INFO] - {Logger.format_log(cls, value)}")
+    
 
   def warning(cls = None, value: str = "") -> None:
     """
@@ -163,7 +177,10 @@ class Logger(object):
       :param value: The text to print
       :type value: str
     """
-    Logger.get_instance().logger.warning(Logger.format_log(cls, value))
+    try:
+      Logger.get_instance().logger.warning(Logger.format_log(cls, value))
+    except:
+      print(f"[WARNING] - {Logger.format_log(cls, value)}")
   
   def warn(cls = None, value: str = "") -> None:
     """
@@ -178,7 +195,10 @@ class Logger(object):
       :param value: The text to print
       :type value: str
     """
-    Logger.get_instance().logger.error(Logger.format_log(cls, value))
+    try:
+      Logger.get_instance().logger.error(Logger.format_log(cls, value))
+    except:
+      print(f"[ERROR] - {Logger.format_log(cls, value)}")
 
   def err(cls = None, value: str = "") -> None:
     """
@@ -195,7 +215,10 @@ class Logger(object):
       :param value: The text to print
       :type value: str
     """
-    Logger.get_instance().logger.critical(Logger.format_log(cls, value))
+    try:
+      Logger.get_instance().logger.critical(Logger.format_log(cls, value))
+    except:
+      print(f"[CRITICAL] - {Logger.format_log(cls, value)}")
 
   def crit(cls = None, value: str = "") -> None:
     """
