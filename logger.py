@@ -3,10 +3,6 @@ import logging.handlers
 import os
 import sys
 
-import threading
-
-mutex = threading.Lock()
-
 class Logger(object):
   """
     This class manage logs using a Singleton via three files critical, infos and sys.stdout
@@ -27,8 +23,8 @@ class Logger(object):
 
   @property
   def logger(self) -> logging.Logger:
-    if Logger.__logger is not None:
-      return Logger.__logger
+    if self.__logger is not None:
+      return self.__logger
     else:
       raise Exception("No logger loaded")
 
@@ -39,11 +35,8 @@ class Logger(object):
 
       :meta static:
     """
-    global mutex
-    mutex.acquire()
     if Logger.__instance == None:
       Logger()
-    mutex.release()
     return Logger.__instance
 
   def __init__(self):
