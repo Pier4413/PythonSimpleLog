@@ -19,7 +19,6 @@ class Logger(object):
     :type __instance: Logger
   """
   __instance = None
-  __logger = None
 
   @property
   def logger(self) -> logging.Logger:
