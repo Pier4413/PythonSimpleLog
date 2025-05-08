@@ -1,0 +1,30 @@
+{
+  "name": "Python & LaTeX Dev",
+  "build": {
+    "dockerfile": "containers/dev.dockerfile"
+  },
+  "customizations": {
+    "vscode": {
+      "settings": {
+        "git.detectSubmodules": false,
+        "git.autoRepositoryDetection": "openEditors",
+        "latex-workshop.latex.autoBuild.run": "onFileChange",
+        "latex-workshop.view.pdf.viewer": "tab"
+      },
+      "extensions": [
+        "editorconfig.editorconfig",
+        "usernamehw.errorlens",
+        "Gruntfuggly.todo-tree",
+        "James-Yu.latex-workshop",
+        "ms-python.python",
+        "ms-python.vscode-pylance",
+        "GitHub.vscode-github-actions"
+      ]
+    }
+  },
+  "mounts": [
+    "source=${localEnv:HOME}${localEnv:USERPROFILE},target=/root,type=bind"
+  ],
+  "remoteUser": "root",
+  "postCreateCommand": "pip install -r requirements.txt || true"
+}
