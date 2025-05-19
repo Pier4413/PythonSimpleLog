@@ -1,8 +1,11 @@
 
 import os
 import sys
+import inspect
+import threading
 import logging
 import logging.handlers
+from typing import Optional
 
 class Logger(object):
   """
@@ -28,8 +31,8 @@ class Logger(object):
     else:
       raise Exception("No logger loaded")
 
-
-  def get_instance() -> "Logger":
+  @staticmethod
+  def get_instance() -> Optional["Logger"]:
     """ 
       Static access method
 
@@ -129,16 +132,17 @@ class Logger(object):
       "The minimal log level as defined in the python logging module. A lower level includes all above\n\t\tOptional\n\t\tDefault : 20\n\t\t\t- 10 : DEBUG\n\t\t\t- 20 : INFO\n\t\t\t- 30 : ERROR\n\t\t\t- 40 : CRITICAL"
     ]
 
-  def format_log(cls = None, value : str = "") -> str:
-    if cls is None:
-      return f"{value}"
-    else:
-      try:
-        return f"{cls} -- {value}"
-      except Exception as e:
-        return f"{cls} -- {value}"
+  @staticmethod
+  def format_log(value: str = "") -> str:
+    frame = inspect.stack()[2]
+    filename = os.path.basename(frame.filename)
+    lineno = frame.lineno
+    func_name = frame.function
+    thread_name = threading.current_thread().name
+    return f"[{thread_name}] {filename}:{lineno} in {func_name}() -- {value}"
 
-  def debug(cls = None, value: str = "") -> None:
+  @staticmethod
+  def debug(value: str = "") -> None:
     """
       Print in debug level
 
@@ -146,11 +150,13 @@ class Logger(object):
       :type value: str
     """
     try:
-      Logger.get_instance().logger.debug(Logger.format_log(cls, value))
+      if Logger.get_instance() is not None:
+        Logger.get_instance().logger.debug(Logger.format_log(value))
     except:
-      print(f"[DEBUG] - {Logger.format_log(cls, value)}")
+      print(f"[DEBUG] - {Logger.format_log(value)}")
 
-  def info(cls = None, value: str = "") -> None:
+  @staticmethod
+  def info(value: str = "") -> None:
     """
       Print in info level
 
@@ -158,12 +164,12 @@ class Logger(object):
       :type value: str
     """
     try:
-      Logger.get_instance().logger.info(Logger.format_log(cls, value))
+      Logger.get_instance().logger.info(Logger.format_log(value))
     except:
-      print(f"[INFO] - {Logger.format_log(cls, value)}")
+      print(f"[INFO] - {Logger.format_log(value)}")
     
-
-  def warning(cls = None, value: str = "") -> None:
+  @staticmethod
+  def warning(value: str = "") -> None:
     """
       Print in warning level
 
@@ -171,17 +177,19 @@ class Logger(object):
       :type value: str
     """
     try:
-      Logger.get_instance().logger.warning(Logger.format_log(cls, value))
+      Logger.get_instance().logger.warning(Logger.format_log(value))
     except:
-      print(f"[WARNING] - {Logger.format_log(cls, value)}")
-  
-  def warn(cls = None, value: str = "") -> None:
+      print(f"[WARNING] - {Logger.format_log(value)}")
+
+  @staticmethod  
+  def warn(value: str = "") -> None:
     """
       Alias for warning
     """
-    Logger.warning(cls, value)
+    Logger.warning(value)
 
-  def error(cls = None, value: str = "") -> None:
+  @staticmethod
+  def error(value: str = "") -> None:
     """
       Print in error level
 
@@ -189,17 +197,19 @@ class Logger(object):
       :type value: str
     """
     try:
-      Logger.get_instance().logger.error(Logger.format_log(cls, value))
+      Logger.get_instance().logger.error(Logger.format_log(value))
     except:
-      print(f"[ERROR] - {Logger.format_log(cls, value)}")
+      print(f"[ERROR] - {Logger.format_log(value)}")
 
-  def err(cls = None, value: str = "") -> None:
+  @staticmethod
+  def err(value: str = "") -> None:
     """
       Alias for error
     """
-    Logger.error(cls, value)
+    Logger.error(value)
 
-  def critical(cls = None, value: str = "") -> None:
+  @staticmethod
+  def critical(value: str = "") -> None:
     """
       Print in critical level
 
@@ -209,12 +219,13 @@ class Logger(object):
       :type value: str
     """
     try:
-      Logger.get_instance().logger.critical(Logger.format_log(cls, value))
+      Logger.get_instance().logger.critical(Logger.format_log(value))
     except:
-      print(f"[CRITICAL] - {Logger.format_log(cls, value)}")
+      print(f"[CRITICAL] - {Logger.format_log(value)}")
 
-  def crit(cls = None, value: str = "") -> None:
+  @staticmethod
+  def crit(value: str = "") -> None:
     """
       Alias for critical
     """
-    Logger.critical(cls, value)
+    Logger.critical(value)
