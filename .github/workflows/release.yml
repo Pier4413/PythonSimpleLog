@@ -31,7 +31,7 @@ jobs:
           TAG=${GITHUB_REF##*/}
           VERSION=${TAG#v}
           echo "Detected version: $VERSION"
-          sed -i "s/version=['\"]\([^'\"]*\)['\"]/version='$VERSION'/" setup.py
+          sed -i "s/__version__ = ['\"]\([^'\"]*\)['\"]/__version__ = '$VERSION'/" logger/metadata/__version__.py
 
       - name: Clean previous builds
         run: |
