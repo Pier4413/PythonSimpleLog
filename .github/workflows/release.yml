@@ -19,7 +19,7 @@ jobs:
 
       - name: Install dependencies
         run: |
-          python -m pip install --upgrade pip setuptools wheel twine pytest build
+          python -m pip install --upgrade pip setuptools wheel twine pytest build theophanie_models
 
       - name: Run unit tests
         run: |
