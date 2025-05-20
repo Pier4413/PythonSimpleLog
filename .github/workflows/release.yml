@@ -19,7 +19,7 @@ jobs:
 
       - name: Install dependencies
         run: |
-          python -m pip install --upgrade pip setuptools wheel twine pytest
+          python -m pip install --upgrade pip setuptools wheel twine pytest build
 
       - name: Run unit tests
         run: |
@@ -31,6 +31,7 @@ jobs:
           TAG=${GITHUB_REF##*/}
           VERSION=${TAG#v}
           echo "Detected version: $VERSION"
+          sed -i "s/version = ['\"]\([^'\"]*\)['\"]/version = '$VERSION'/" pyproject.toml
           sed -i "s/__version__ = ['\"]\([^'\"]*\)['\"]/__version__ = '$VERSION'/" logger/metadata/__version__.py
 
       - name: Clean previous builds
@@ -39,7 +40,7 @@ jobs:
           rm -rf *.egg-info
 
       - name: Build package
-        run: python setup.py sdist
+        run: python -m build
 
       - name: Upload package to custom repository
         env:

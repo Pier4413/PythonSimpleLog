@@ -1,0 +1,16 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "logger"
+version = "2.0.0"
+description = "A simple wrapper for logging in Python"
+authors = [
+    { name = "Panda", email = "panda@delmasweb.net" }
+]
+keywords = ["logger", "logs", "logging"]
+urls = { Homepage = "https://github.com/Pier4413/PythonSimpleLog" }
+
+[tool.setuptools.packages.find]
+where = ["."]
