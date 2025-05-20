@@ -69,8 +69,8 @@ class Logger(object):
 
   def load_logger(self,
     app_name: str = "",
-    critical_file: str | None = None,
-    info_file: str | None = None,
+    critical_file: Optional[str] = None,
+    info_file: Optional[str] = None,
     files_max_size: int = 10,
     backup_count: int = 10,
     console: bool = False,
@@ -81,9 +81,9 @@ class Logger(object):
       :param appName: The name of the application
       :type appName: str
       :param criticalFile: Optional; Default : None; Critical file full path (relative or absolute). If None no crit file
-      :type criticalFile: str
+      :type criticalFile: Optional[str]
       :param infoFile: Optional; Default : None; Info file full path (relative or absolute). If None no info file
-      :type infoFile: str
+      :type infoFile: Optional[str]
       :param files_max_size: Optional; Default : 1; Max size of the files (critical and info) in MB
       :type files_max_size: int
       :param backup_count: Optional; Default : 10; The number of files to keep
