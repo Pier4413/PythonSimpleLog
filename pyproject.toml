@@ -9,6 +9,7 @@ description = "A simple wrapper for logging in Python"
 authors = [
     { name = "Panda", email = "panda@delmasweb.net" }
 ]
+dependencies = ["theophanie_models"]
 requires-python = ">=3.12"
 keywords = ["logger", "logs", "logging"]
 urls = { Homepage = "https://github.com/Pier4413/PythonSimpleLog" }
