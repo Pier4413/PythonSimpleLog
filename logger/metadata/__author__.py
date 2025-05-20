@@ -1,1 +1,0 @@
-__authors__ = ["Panda <panda@delmasweb.net>"]

@@ -7,6 +7,12 @@ import logging
 import logging.handlers
 from typing import Optional
 
+__authors__ = ["Panda <panda@delmasweb.net>"]
+__short_licence_name__ = "No licence"
+__long_licence_text__ = ""
+__version__ = "1.0.0"
+__name__ = "Logger"
+
 class Logger(object):
   """
     This class manage logs using a Singleton via three files critical, infos and sys.stdout
