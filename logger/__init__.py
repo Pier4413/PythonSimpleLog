@@ -25,7 +25,7 @@ def create_life_message() -> LifeMessage:
   authors_part = LifeMessage(text="Authors", value=str(__authors__), type=LifeType.INFO)
   licence_part = LifeMessage(text="Licence", value=__short_licence_name__, type=LifeType.INFO)
   version_part = LifeMessage(text="Version", value=__version__, type=LifeType.INFO)
-  life_message = LifeMessage(text=__name__, childs=[version_part, authors_part, licence_part], type=LifeType.INFO)
+  life_message = LifeMessage(text=__name__, children=[version_part, authors_part, licence_part], type=LifeType.INFO)
 
   return life_message
 
