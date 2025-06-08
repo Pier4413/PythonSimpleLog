@@ -146,6 +146,7 @@ class Logger(object):
       handler_debug.setLevel(logging.DEBUG)
       self.__logger.addHandler(handler_debug)
 
+  @staticmethod
   def helper() -> list:
     return [
       "If we want to print the logs in the console. Includes everything from DEBUG level and above. If False, no printing.\n\t\tOptional\n\t\tDefault : False",
